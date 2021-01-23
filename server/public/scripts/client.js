@@ -20,8 +20,8 @@ function clickListeners() {
     makeChore(choreInput);
     $("input").val('');
   });
-  //$('#viewKoalas').on('click', '#status', getById);  // getById is for status change function.
-  //$('#viewKoalas').on('click', '#delete', deleteChore);  // <-- add back for the DELETE.
+  //$('#taskList').on('click', '.completer', getById);  // getById is for status change function.
+  $('#taskList').on('click', '.deleter', deleteChore);  // <-- add back for the DELETE.
 }
 
 
@@ -47,11 +47,11 @@ function showChores(chores) {
     let chore = chores[i];
     // For each chore, append a new row to our table, include status and delet buttons
     let $tr = $('<tr></tr>');
-    $tr.data('chores', chore);  // maybe chores?
+    $tr.data('chores', chore);  
     $tr.append(`<td>${chore.task}</td>`);
     $tr.append(`<td>${chore.status}</td>`);
-    $tr.append(`<td> <button data-bookidd=${chore.id} class="completer"> Complete? </button></td>`);
-    $tr.append(`<td> <button data-bookid=${chore.id} class="deleter"> Delete Task </button></td>`);
+    $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);
+    $tr.append(`<td> <button data-choreId=${chore.id} class="deleter"> Delete Task </button></td>`);
     
 
     $('#taskTable').append($tr);
@@ -76,6 +76,23 @@ function makeChore(newChore) {
 }
 
 
-// PUT -- edit a chore by marking as finished.
-
 // DELETE -- Remove a chore from the DB and DOM
+function deleteChore(event) {
+  console.log('deleter clicked');
+  console.log(event.target);
+  
+  const choreId = $(event.target).data('choreid'); 
+
+  console.log(`Deleting chore with id ${choreId}`);
+// swal, sweet alert will go here.
+  $.ajax({
+    method: "DELETE",
+    url: `/chores/${choreId}`,
+  }).then(function (response) {
+    getChores();
+  })
+};
+
+
+
+// PUT -- edit a chore by marking as finished.

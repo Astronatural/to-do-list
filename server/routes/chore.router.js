@@ -34,9 +34,26 @@ router.post('/', (req, res) => {
         });
 });
 
+// DELETE -- Remove a chore from the DB and DOM
+router.delete('/:id', (req, res) => {
+    let id = req.params.id; // id of the thing to delete
+    const queryText = `DELETE FROM "chores" WHERE id=$1`
+    console.log('Delete chore called with id of', id);
+
+    pool.query(queryText, [id])
+        .then((result) => {
+            res.sendStatus(204); 
+        })
+        .catch((err) => {
+            console.log(`Error making query ${queryText}`, err);
+            res.sendStatus(500);
+        })
+});
+
+
 // PUT -- edit a chore, mark as finished.
 
-// DELETE -- Remove a chore from the DB and DOM
+
 
 
 module.exports = router;
