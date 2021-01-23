@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
     pool.query(queryText).then(result => {
         // Sends back the results in an object
         res.send(result.rows);
+       // res.sendStatus(200);  // hmm...
     })
         .catch(error => {
             console.log('error getting books', error);
@@ -17,6 +18,21 @@ router.get('/', (req, res) => {
 });
 
 // POST --  add a new chore
+router.post('/', (req, res) => {
+    let newChore = req.body;
+    console.log(`Adding chore`, newChore);
+
+    let queryText = `INSERT INTO "chores" ("task", "status")
+                   VALUES ($1, $2);`;
+    pool.query(queryText, [newChore.task, newChore.status])
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(error => {
+            console.log(`Error adding new chore`, error);
+            res.sendStatus(500);
+        });
+});
 
 // PUT -- edit a chore, mark as finished.
 

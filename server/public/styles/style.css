@@ -1,3 +1,9 @@
 body {
     background-color:  #FFFFBF;
 }
+
+table, th, td {
+    border: royalblue 2px solid;
+    width: 100%;
+    border-collapse: collapse;
+}
