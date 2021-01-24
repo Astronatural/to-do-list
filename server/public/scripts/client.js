@@ -1,9 +1,9 @@
 $(function () {
-    console.log('JQ and JS up and running');
-    // Establish Click Listeners
-   clickListeners();
-    
-    getChores();  // get chores from DB
+  console.log('JQ and JS up and running');
+  // Establish Click Listeners
+  clickListeners();
+
+  getChores();  // get chores from DB
 
 }); // end doc ready
 
@@ -20,23 +20,23 @@ function clickListeners() {
     makeChore(choreInput);
     $("input").val('');
   });
-  //$('#taskList').on('click', '.completer', getById);  // getById is for status change function.
+  $('#taskList').on('click', '.completer', compCheck);  // getById is for status change function.
   $('#taskList').on('click', '.deleter', deleteChore);  // <-- add back for the DELETE.
 }
 
 
 // GET -- show chores table on the DOM
 function getChores() {
-    $.ajax({
-      type: 'GET',
-      url: '/chores'
-    }).then(function (response) {
-      console.log(response);
-      showChores(response);
-    }).catch(function (error) {
-      console.log('error in GET', error);
-    });
-  } // end getChores (from DB)
+  $.ajax({
+    type: 'GET',
+    url: '/chores'
+  }).then(function (response) {
+    console.log(response);
+    showChores(response);
+  }).catch(function (error) {
+    console.log('error in GET', error);
+  });
+} // end getChores (from DB)
 
 
 // Displays an array of chores to the DOM
@@ -47,12 +47,12 @@ function showChores(chores) {
     let chore = chores[i];
     // For each chore, append a new row to our table, include status and delet buttons
     let $tr = $('<tr></tr>');
-    $tr.data('chores', chore);  
+    $tr.data('chores', chore);
     $tr.append(`<td>${chore.task}</td>`);
     $tr.append(`<td>${chore.status}</td>`);
     $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);
     $tr.append(`<td> <button data-choreId=${chore.id} class="deleter"> Delete Task </button></td>`);
-    
+
 
     $('#taskTable').append($tr);
   }
@@ -80,11 +80,11 @@ function makeChore(newChore) {
 function deleteChore(event) {
   console.log('deleter clicked');
   console.log(event.target);
-  
-  const choreId = $(event.target).data('choreid'); 
+
+  const choreId = $(event.target).data('choreid');
 
   console.log(`Deleting chore with id ${choreId}`);
-// swal, sweet alert will go here.
+  // swal, sweet alert will go here.
   $.ajax({
     method: "DELETE",
     url: `/chores/${choreId}`,
@@ -96,3 +96,28 @@ function deleteChore(event) {
 
 
 // PUT -- edit a chore by marking as finished.
+function compCheck(event) {
+  console.log('completer clicked');
+  console.log(event.target);
+  const choreStatus = $(event.target).closest("<tr>").find(".status").text(); // maybe .children...
+  const choreId = $(event.target).data('choreid');
+  console.log(`Updating chore with id ${choreId}`);
+  let choreStatus;
+  if (choreStatus === "n") {  // no this should be status, not ID...
+    choreStatus = "n";
+  } else if (choreStatus === "y") {
+    choreStatus = "y";
+  };
+  $.ajax({
+    method: 'PUT',
+    url: `/chores/${choreId}`,
+    data: {
+      status: choreStatus
+    }
+  }).then(response => {
+    console.log(`Task updated where id: ${choreId}`);
+    getChores();
+  }).catch(error => {
+
+  });
+}

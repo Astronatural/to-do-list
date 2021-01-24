@@ -52,6 +52,9 @@ router.delete('/:id', (req, res) => {
 
 
 // PUT -- edit a chore, mark as finished.
+router.put('/:id', (req, res) => {
+
+});
 
 
 
