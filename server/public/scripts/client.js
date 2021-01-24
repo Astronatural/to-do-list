@@ -46,10 +46,10 @@ function showChores(chores) {
   for (let i = 0; i < chores.length; i += 1) {
     let chore = chores[i];
     // For each chore, append a new row to our table, include status and delet buttons
-    let $tr = $('<tr></tr>');
+    let $tr = $(`<tr data-choreSt=${chore.status} ></tr>`);
     $tr.data('chores', chore);
     $tr.append(`<td>${chore.task}</td>`);
-    $tr.append(`<td>${chore.status}</td>`);
+    $tr.append(`<td data-choreSt=${chore.status}>${chore.status}</td>`);
     $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);
     $tr.append(`<td> <button data-choreId=${chore.id} class="deleter"> Delete Task </button></td>`);
 
@@ -57,6 +57,7 @@ function showChores(chores) {
     $('#taskTable').append($tr);
   }
 }  // end showChores
+
 
 // POST --  add a new chore
 function makeChore(newChore) {
@@ -99,23 +100,29 @@ function deleteChore(event) {
 function compCheck(event) {
   console.log('completer clicked');
   console.log(event.target);
-  const choreStatus = $(event.target).closest("<tr>").find(".status").text(); // maybe .children...
+  console.log($(event.target).parent().parent().data('chorest'));
+
+  let choreStatus = $(event.target).parent().parent().data('chorest');
+  //    const choreStatus = $(event.target).parent()("<td>").find(".status").text(); 
+  console.log(choreStatus);
+
   const choreId = $(event.target).data('choreid');
   console.log(`Updating chore with id ${choreId}`);
-  let choreStatus;
-  if (choreStatus === "n") {  // no this should be status, not ID...
-    choreStatus = "n";
-  } else if (choreStatus === "y") {
+  if (choreStatus === "n") {  // The if statement, it does nothing!
     choreStatus = "y";
+  } else if (choreStatus === "y") {
+    choreStatus = "n";
+  };
+  let choreInput = { // check that these corispond with database keys ??
+    id: choreId,
+    status: choreStatus,
   };
   $.ajax({
     method: 'PUT',
     url: `/chores/${choreId}`,
-    data: {
-      status: choreStatus
-    }
+    data: choreInput
   }).then(response => {
-    console.log(`Task updated where id: ${choreId}`);
+    console.log(`Task updated where id: ${choreId} and status of ${choreStatus}`);
     getChores();
   }).catch(error => {
 
