@@ -2,8 +2,30 @@ body {
     background-color:  #FFFFBF;
 }
 
-table, th, td {
-    border: royalblue 2px solid;
+@font-face {
+    font-family: myFirstFont;
+    src: url(A_Sensible_Armadillo.ttf);  /*server/public/styles/A_Sensible_Armadillo.ttf*/
+}
+
+#taskTable {
     width: 100%;
+}
+
+table, th, td {
+    font-family: myFirstFont;
+    border: royalblue 2px solid;
+    text-align: center;
     border-collapse: collapse;
+}
+
+header {
+    background-color: saddlebrown;
+    padding: 20px 100px 20px 100px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 23px;
+}
+
+#inputDiv {
+      background-color: silver;
+  
 }

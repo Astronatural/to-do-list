@@ -48,8 +48,8 @@ function showChores(chores) {
     // For each chore, append a new row to our table, include status and delet buttons
     let $tr = $(`<tr data-choreSt=${chore.status} ></tr>`);
     $tr.data('chores', chore);
-    $tr.append(`<td>${chore.task}</td>`);
     $tr.append(`<td data-choreSt=${chore.status}>${chore.status}</td>`);
+    $tr.append(`<td>${chore.task}</td>`);
     $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);
     $tr.append(`<td> <button data-choreId=${chore.id} class="deleter"> Delete Task </button></td>`);
 
