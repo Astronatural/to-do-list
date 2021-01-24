@@ -45,12 +45,22 @@ function showChores(chores) {
 
   for (let i = 0; i < chores.length; i += 1) {
     let chore = chores[i];
-    // For each chore, append a new row to our table, include status and delet buttons
+    // Insert If to check the status value 
+    let checkImg;
+    if (chore.status === 'n') {
+      // change statusImg to redX  
+      checkImg = `<td> <img id="statusImg" src="./styles/redX.png"> </td>`
+    } else if (chore.status === 'y') {
+      // change statusImg to greenCheck
+      checkImg = `<td> <img id="statusImg" src="./styles/greenCheck.png"> </td>`
+
+    }
+    // For each chore, append a new row to our table, include status and delete buttons
     let $tr = $(`<tr data-choreSt=${chore.status} ></tr>`);
     $tr.data('chores', chore);
-    $tr.append(`<td data-choreSt=${chore.status}>${chore.status}</td>`);
+    $tr.append(checkImg);  // ./styles/redX.png storeing--> ${chore.status}
     $tr.append(`<td>${chore.task}</td>`);
-    $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);
+    $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);  // PUT event target
     $tr.append(`<td> <button data-choreId=${chore.id} class="deleter"> Delete Task </button></td>`);
 
 
@@ -98,22 +108,25 @@ function deleteChore(event) {
 
 // PUT -- edit a chore by marking as finished.
 function compCheck(event) {
+
   console.log('completer clicked');
   console.log(event.target);
   console.log($(event.target).parent().parent().data('chorest'));
-
+  // $(this).classList.toggle("greenCheck"); // <-- move to get
+  //$(this).parent.previousSibling.css("text-decoration", "line-through"); // <-- move to get
   let choreStatus = $(event.target).parent().parent().data('chorest');
-  //    const choreStatus = $(event.target).parent()("<td>").find(".status").text(); 
   console.log(choreStatus);
-
+  console.log(this);  // same as event targt
   const choreId = $(event.target).data('choreid');
   console.log(`Updating chore with id ${choreId}`);
-  if (choreStatus === "n") {  // The if statement, it does nothing!
+  if (choreStatus === "n") {
     choreStatus = "y";
+    // $(this).closest(`#statusImg`).css('content', 'url(./styles/greenCheck.png)'); // change status image to greenCheck
   } else if (choreStatus === "y") {
     choreStatus = "n";
+    // $(this).closest(`#statusImg`).css('content', 'url(./styles/redX.png)');  // change status image to redX
   };
-  let choreInput = { // check that these corispond with database keys ??
+  let choreInput = {
     id: choreId,
     status: choreStatus,
   };

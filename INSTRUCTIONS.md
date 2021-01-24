@@ -25,7 +25,7 @@ X* Deleting a Task should remove it both from the front end as well as the Datab
 
 Use CSS styling to move the aesthetic of the page beyond the vanilla HTML look:
   X- background color of the page
-  - font family and size
+  X- font family and size
   - text color & or background color of tasks *to show whether or not they have been completed*
 
 ### Approach
