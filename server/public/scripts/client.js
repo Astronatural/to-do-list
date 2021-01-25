@@ -1,8 +1,6 @@
 $(function () {
   console.log('JQ and JS up and running');
-  // Establish Click Listeners
   clickListeners();
-
   getChores();  // get chores from DB
 
 }); // end doc ready
@@ -12,18 +10,17 @@ function clickListeners() {
   $('#submit').on('click', function () {
     console.log('in clickListen on click');
     // get user input and put in an object
-    let choreInput = { // check that these corispond with database keys ??
+    let choreInput = {
       task: $("#taskPut").val(),
       status: "n",
     };
-    // call makeChore with the new obejct
+    // call makeChore with the new object as argument
     makeChore(choreInput);
     $("input").val('');
   });
-  $('#taskList').on('click', '.completer', compCheck);  // getById is for status change function.
-  $('#taskList').on('click', '.deleter', deleteChore);  // <-- add back for the DELETE.
+  $('#taskList').on('click', '.completer', compCheck);
+  $('#taskList').on('click', '.deleter', deleteChore);
 }
-
 
 // GET -- show chores table on the DOM
 function getChores() {
@@ -47,22 +44,23 @@ function showChores(chores) {
     let chore = chores[i];
     // Insert If to check the status value 
     let checkImg;
+    let striker;
     if (chore.status === 'n') {
       // change statusImg to redX  
-      checkImg = `<td> <img id="statusImg" src="./styles/redX.png"> </td>`
+      checkImg = `<td> <img id="statusImg" src="./styles/redX.png"> </td>`;
+      striker = `<td>${chore.task}</td>`
     } else if (chore.status === 'y') {
       // change statusImg to greenCheck
-      checkImg = `<td> <img id="statusImg" src="./styles/greenCheck.png"> </td>`
-
+      checkImg = `<td> <img id="statusImg" src="./styles/greenCheck.png"> </td>`;
+      striker = `<td class="strike">${chore.task}</td>`
     }
     // For each chore, append a new row to our table, include status and delete buttons
     let $tr = $(`<tr data-choreSt=${chore.status} ></tr>`);
     $tr.data('chores', chore);
-    $tr.append(checkImg);  // ./styles/redX.png storeing--> ${chore.status}
-    $tr.append(`<td>${chore.task}</td>`);
+    $tr.append(checkImg);  // ./styles/redX.png 
+    $tr.append(striker);
     $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);  // PUT event target
     $tr.append(`<td> <button data-choreId=${chore.id} class="deleter"> Delete Task </button></td>`);
-
 
     $('#taskTable').append($tr);
   }
@@ -95,7 +93,6 @@ function deleteChore(event) {
   const choreId = $(event.target).data('choreid');
 
   console.log(`Deleting chore with id ${choreId}`);
-  // swal, sweet alert will go here.
   $.ajax({
     method: "DELETE",
     url: `/chores/${choreId}`,
@@ -110,10 +107,7 @@ function deleteChore(event) {
 function compCheck(event) {
 
   console.log('completer clicked');
-  console.log(event.target);
-  console.log($(event.target).parent().parent().data('chorest'));
-  // $(this).classList.toggle("greenCheck"); // <-- move to get
-  //$(this).parent.previousSibling.css("text-decoration", "line-through"); // <-- move to get
+
   let choreStatus = $(event.target).parent().parent().data('chorest');
   console.log(choreStatus);
   console.log(this);  // same as event targt
@@ -121,10 +115,8 @@ function compCheck(event) {
   console.log(`Updating chore with id ${choreId}`);
   if (choreStatus === "n") {
     choreStatus = "y";
-    // $(this).closest(`#statusImg`).css('content', 'url(./styles/greenCheck.png)'); // change status image to greenCheck
   } else if (choreStatus === "y") {
     choreStatus = "n";
-    // $(this).closest(`#statusImg`).css('content', 'url(./styles/redX.png)');  // change status image to redX
   };
   let choreInput = {
     id: choreId,

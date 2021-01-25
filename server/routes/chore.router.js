@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     pool.query(queryText).then(result => {
         // Sends back the results in an object
         res.send(result.rows);
-       // res.sendStatus(200);  // hmm...
     })
         .catch(error => {
             console.log('error getting books', error);
@@ -54,13 +53,6 @@ router.delete('/:id', (req, res) => {
 // PUT -- edit a chore, mark as finished.
 router.put('/:id', (req, res) => {
     let newChore = req.body;
-
-    // let id = req.params.id; // id of the thing to delete
-    // let status = req.params.status; // id of the thing to delete
-    console.log(req.params.id);
-    console.log(req.params.status);
-    console.log(req.body);
-
     const queryText = `UPDATE "chores" SET "status" = $1 WHERE "id" = $2`;
     console.log('Updating chore called with id of', newChore.id, 'and status of', newChore.status );
 
@@ -73,9 +65,6 @@ router.put('/:id', (req, res) => {
             res.sendStatus(500);
         })
 });
-
-
-
 
 
 module.exports = router;

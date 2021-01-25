@@ -8,18 +8,21 @@ body {
     src: url(A_Sensible_Armadillo.ttf);  /*server/public/styles/A_Sensible_Armadillo.ttf*/
 }
 
-.greenCheck {
-    content: url(./styles/greenCheck.png) !important;
-}
 
 #taskTable {
     width: 100%;
 }
 
+
 .strike {    
     text-decoration: line-through;
-
 }
+
+
+.deleter {
+    background-color: #e9bcb5;
+}
+
 
 table, th, td {
     font-family: myFirstFont;
@@ -29,10 +32,12 @@ table, th, td {
     border-collapse: collapse;
 }
 
+
 th {
     font-weight: bold;
     font-size: 40px;
 }
+
 
 header {
     background-color: saddlebrown;
@@ -49,7 +54,15 @@ header {
   
 }
 
+
 img {
     height:20px;
     width: 20px;
+}
+
+
+footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
 }
