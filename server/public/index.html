@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>The Big To-Do List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="vendors/jquery.js"></script>
+    <script src="scripts/client.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles/style.css" media="screen">
+</head>
+
+<body>
+    <header>
+        <h1>The Big TO-DO List </h1>
+    </header>
+    <div id="inputDiv">
+        <input id="taskPut" type="text" placeholder="Enter Task">
+        <button id="submit">Submit Chore</button>
+
+    </div>
+    <table id="taskTable">
+        <colgroup>
+            <col style="width: 10px">
+            <col style="width: 250px">
+            <col style="width: 10px">
+            <col style="width: 10px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th> Complete? </th>
+                <th> The Task At Hand</th>
+                <th id="spacerForCompleteButton"> </th>
+                <th id="spacerForDeleteButton"> </th>
+            </tr>
+        </thead>
+        <tbody id="taskList">
+        </tbody>
+    </table>
+    <footer>
+        &copy; JDK, few rights reserved.
+    </footer>
+</body>
+
+</html>

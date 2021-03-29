@@ -1,0 +1,68 @@
+body {
+    background-color:  #FFFFBF;
+}
+
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(A_Sensible_Armadillo.ttf);  /*server/public/styles/A_Sensible_Armadillo.ttf*/
+}
+
+
+#taskTable {
+    width: 100%;
+}
+
+
+.strike {    
+    text-decoration: line-through;
+}
+
+
+.deleter {
+    background-color: #e9bcb5;
+}
+
+
+table, th, td {
+    font-family: myFirstFont;
+    font-size: 23px;
+    border: royalblue 2px solid;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+
+th {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+
+header {
+    background-color: saddlebrown;
+    padding: 20px 100px 20px 100px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 23px;
+}
+
+
+#inputDiv {
+    padding: 5px;
+    margin: 0px 0px 12px 0px;  
+    background-color: silver;
+  
+}
+
+
+img {
+    height:20px;
+    width: 20px;
+}
+
+
+footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
