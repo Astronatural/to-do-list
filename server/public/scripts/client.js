@@ -110,7 +110,7 @@ function compCheck(event) {
 
   let choreStatus = $(event.target).parent().parent().data('chorest');
   console.log(choreStatus);
-  console.log(this);  // same as event targt
+  console.log(this);  // same as event target
   const choreId = $(event.target).data('choreid');
   console.log(`Updating chore with id ${choreId}`);
   if (choreStatus === "n") {
