@@ -1,7 +1,7 @@
 const pg = require('pg');
 
 const config = {
-    database: 'weekend-to-do-app',
+    database: 'BigToDoApp',
     host: 'localhost',
     port: 5432,
     max: 10,
