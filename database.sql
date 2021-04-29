@@ -30,9 +30,9 @@ INSERT INTO "chores" ("task")
 VALUES('Get the mail');
 
 
-INSERT INTO "chores" ("task", "status")
-VALUES('Pay bills', 'n');
+INSERT INTO "chores" ("task")
+VALUES('Pay bills');
 
 
-INSERT INTO "chores" ("task", "status")
-VALUES('Call your mother', 'n');
+INSERT INTO "chores" ("task")
+VALUES('Call your mother');
