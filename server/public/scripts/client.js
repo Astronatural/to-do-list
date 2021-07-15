@@ -57,7 +57,7 @@ function showChores(chores) {
     // For each chore, append a new row to our table, include status and delete buttons
     let $tr = $(`<tr data-choreSt=${chore.status} ></tr>`);
     $tr.data('chores', chore);
-    $tr.append(checkImg);  // ./styles/redX.png 
+    $tr.append(checkImg);
     $tr.append(striker);
     $tr.append(`<td> <button data-choreId=${chore.id} class="completer"> Complete? </button></td>`);  // PUT event target
     $tr.append(`<td> <button data-choreId=${chore.id} class="deleter"> Delete Task </button></td>`);

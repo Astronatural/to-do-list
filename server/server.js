@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('server/public/'));
 
 // ROUTES
-const router = require('./routes/chore.router') // server/routes/router.js
+const router = require('./routes/chore.router')
 app.use('/chores', router)
 
 
